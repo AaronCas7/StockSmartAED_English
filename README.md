@@ -1,4 +1,4 @@
-# Solución Stock Smart
+# Solución Stock Smart AED
 
 ## Descripción de la solución
 
