@@ -1,12 +1,23 @@
-from flask import Flask, render_template, request, Response, jsonify, session
-import pymssql
+from flask import Flask, request, Response, jsonify
+from azure.cosmos import CosmosClient
 
 
-#REVISAR CON EL COMMIT lo que no son funciones de ruta
 
 # Creamos una instancia de Flask
 app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, que es __main__
-                                                        
+
+connectionString = "AccountEndpoint=https://democosmosdbaed.documents.azure.com:443/;AccountKey=qIRhvZF5K53ACmp5QvpKNOYfSaKBR5N1SHPcVxwFmuUbTHSU4NKxGOJuSqSxy9CVQdTji53gc0kIACDbzxB0dw==;"
+
+endPoint = "https://democosmosdbaed.documents.azure.com:443/"
+key = "qIRhvZF5K53ACmp5QvpKNOYfSaKBR5N1SHPcVxwFmuUbTHSU4NKxGOJuSqSxy9CVQdTji53gc0kIACDbzxB0dw=="
+
+dbName = "cosmosAED"
+containerName = "products"
+
+cosmosClient = CosmosClient(endPoint, key)
+db = cosmosClient.get_database_client(dbName)
+container = db.get_container_client(containerName)
+
 
 ################################
 # Rutas de la aplicación Flask #
@@ -16,16 +27,16 @@ app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, qu
 @app.route("/productos", methods=["GET"])                  
 def products_get():
     
-    data = "Mostrando todos los productos"
-    return data
+    items = list(container.read_all_items())
+    return items
 
 
 # Ruta: http://dominio.com/productos/34                         
 @app.route("/productos/<id>", methods=["GET"])   
-def product_get(id):
+def product_get(id, category_id):
 
-    data = f"Mostrando el producto {id}"  #mirar lo de cambiar el nombre por el id
-    return data
+    item = container.read_item(item=id, partition_key=category_id)
+    return jsonify(item)
 
 
 # Ruta: http://dominio.com/productos     
