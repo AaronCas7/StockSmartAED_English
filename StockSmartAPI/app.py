@@ -8,7 +8,7 @@ app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, qu
 
 connectionString = ""
 
-endPoint = "https://democosmosdbaed.documents.azure.com:443/"
+endPoint = ""
 key = ""
 
 dbName = "cosmosAED"
