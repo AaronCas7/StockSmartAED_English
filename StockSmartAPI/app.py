@@ -6,10 +6,7 @@ from azure.cosmos import CosmosClient
 # Creamos una instancia de Flask
 app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, que es __main__
 
-connectionString = ""
 
-endPoint = ""
-key = ""
 
 dbName = "cosmosAED"
 containerName = "products"
