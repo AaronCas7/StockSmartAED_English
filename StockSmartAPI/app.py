@@ -65,7 +65,7 @@ def products_delete(id):
 
     # Intenta eliminar el producto con el ID especificado
     query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
-    items = list(container.query_items(query, enable_cross_partition_query=True))
+    items = list(container.query_items(query, enable_cross_partition_query=True)) # Hay que habilitar las consultas entre particiones cruzadas
     
     if items:
         container.delete_item(item=items[0]['id'], partition_key=items[0]['ProductID'])
