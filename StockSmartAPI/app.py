@@ -1,23 +1,19 @@
 from flask import Flask, request, Response, jsonify
 from azure.cosmos import CosmosClient
 
-
-
 # Creamos una instancia de Flask
 app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, que es __main__
 
-connectionString = ""
-
-endPoint = ""
-key = ""
-
+# Datos específicos
+endPoint = "https://democosmosdbaed.documents.azure.com/"
+key = "qIRhvZF5K53ACmp5QvpKNOYfSaKBR5N1SHPcVxwFmuUbTHSU4NKxGOJuSqSxy9CVQdTji53gc0kIACDbzxB0dw==;"
 dbName = "cosmosAED"
 containerName = "products"
 
+# Establecer conexión con CosmosDB
 cosmosClient = CosmosClient(endPoint, key)
 db = cosmosClient.get_database_client(dbName)
 container = db.get_container_client(containerName)
-
 
 ################################
 # Rutas de la aplicación Flask #
@@ -30,14 +26,14 @@ def products_get():
     items = list(container.read_all_items())
     return items
 
-
 # Ruta: http://dominio.com/productos/34                         
 @app.route("/productos/<id>", methods=["GET"])   
-def product_get(id, category_id):
+def product_get(id):
 
-    item = container.read_item(item=id, partition_key=category_id)
-    return jsonify(item)
+    query = "SELECT products WHERE ProductID = id"
+    items = list(container.query_items(query))
 
+    return items
 
 # Ruta: http://dominio.com/productos     
 @app.route("/productos", methods=["POST"])
