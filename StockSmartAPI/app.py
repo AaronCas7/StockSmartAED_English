@@ -23,14 +23,15 @@ container = db.get_container_client(containerName)
 @app.route("/productos", methods=["GET"])                  
 def products_get():
     
-    items = list(container.read_all_items())
+    items = list(container.read_all_items())   #Probar y decidir si lo dejamos así o como query = "SELECT * FROM c"
     return items
+   
 
 # Ruta: http://dominio.com/productos/34                         
 @app.route("/productos/<id>", methods=["GET"])   
 def product_get(id):
 
-    query = "SELECT products WHERE ProductID = id"
+    query = f"SELECT products WHERE ProductID = '{id}'"  #otra idea-> query = "SELECT * FROM c WHERE c.products = '{id}'"
     items = list(container.query_items(query))
 
     return items
