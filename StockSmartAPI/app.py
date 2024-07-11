@@ -1,12 +1,18 @@
-from flask import Flask, request, Response, jsonify
+from flask import Flask, jsonify
 from azure.cosmos import CosmosClient
+
+import os
+from dotenv import load_dotenv
 
 # Creamos una instancia de Flask
 app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, que es __main__
 
-# Datos específicos
-endPoint = "https://democosmosdbaed.documents.azure.com/"
-key = "qIRhvZF5K53ACmp5QvpKNOYfSaKBR5N1SHPcVxwFmuUbTHSU4NKxGOJuSqSxy9CVQdTji53gc0kIACDbzxB0dw==;"
+# Cargar variables de entorno desde .env
+load_dotenv()
+
+# Obtener las variables de entorno
+endPoint = os.getenv("ENDPOINT")
+key = os.getenv("KEY")
 dbName = "cosmosAED"
 containerName = "products"
 
@@ -24,18 +30,19 @@ container = db.get_container_client(containerName)
 def products_get():
     
     items = list(container.read_all_items())   #Probar y decidir si lo dejamos así o como query = "SELECT * FROM c"
-    return items
+    return jsonify(items)
    
 
 # Ruta: http://dominio.com/productos/34                         
-@app.route("/productos/<id>", methods=["GET"])   
+@app.route("/productos/<int:id>", methods=["GET"])
 def product_get(id):
-
-    query = f"SELECT products WHERE ProductID = '{id}'"  #otra idea-> query = "SELECT * FROM c WHERE c.products = '{id}'"
-    items = list(container.query_items(query))
-
-    return items
-
+    
+    # Obtener el producto por ID desde CosmosDB
+    query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
+    items = list(container.query_items(query, enable_cross_partition_query=True))  # Hay que habilitar las consultas entre particiones cruzadas
+        
+    return jsonify(items)  # Devolver el primer producto encontrado como JSON
+        
 # Ruta: http://dominio.com/productos     
 @app.route("/productos", methods=["POST"])
 def products_post():
@@ -56,8 +63,16 @@ def products_put(id):
 @app.route("/productos/<id>", methods=["DELETE"])   
 def products_delete(id):
 
-    data = f"Eliminado el producto {id}"  #mirar lo de cambiar el nombre por el id
-    return data
+    # Intenta eliminar el producto con el ID especificado
+    query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
+    items = list(container.query_items(query, enable_cross_partition_query=True))
+    
+    if items:
+        container.delete_item(item=items[0]['id'], partition_key=items[0]['ProductID'])
+        return f"Eliminado el producto {id} correctamente", 200
+    
+    else:
+        return f"No se encontró el producto con ID {id}", 404
 
 
 ################################################################
@@ -65,3 +80,5 @@ def products_delete(id):
 ################################################################
 if(__name__ == "__main__"):             #Esto no sería necesario, se puede hacer app.run() directamente
     app.run()
+    
+    
