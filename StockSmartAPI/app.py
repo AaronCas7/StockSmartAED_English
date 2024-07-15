@@ -76,6 +76,24 @@ def products_post():
 @app.route("/productos/<id>", methods=["PUT"])
 def products_put(id):
     
+    try:
+        product_data = request.get_json()  # Obtener los datos del producto
+        if not product_data:
+            return jsonify({"error": "No se proporcionaron datos para actualizar"}), 400
+
+        query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
+        items = list(container.query_items(query, enable_cross_partition_query=True))
+
+        if items:
+            # Actualizar el producto en la base de datos
+            container.upsert_item({**items[0], **product_data})
+            return jsonify({"message": f"Producto con ID {id} actualizado correctamente"}), 200
+        else:
+            return jsonify({"error": f"No se encontró el producto con ID {id}"}), 404
+    
+    except Exception as e:
+        print(f"Error al actualizar el producto: {str(e)}")
+        return jsonify({"error": "Error al actualizar el producto"}), 400
     
     
 
