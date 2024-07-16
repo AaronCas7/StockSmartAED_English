@@ -14,7 +14,7 @@ load_dotenv()
 endPoint = os.getenv("ENDPOINT")
 key = os.getenv("KEY")
 dbName = "cosmosAED"
-containerName = "products"
+containerName = "productos"
 
 # Establecer conexión con CosmosDB
 cosmosClient = CosmosClient(endPoint, key)
