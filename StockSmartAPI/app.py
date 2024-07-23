@@ -14,7 +14,7 @@ load_dotenv()
 endPoint = os.getenv("ENDPOINT")
 key = os.getenv("KEY")
 dbName = "cosmosAED"
-containerName = "products"
+containerName = "productos"
 
 # Establecer conexión con CosmosDB
 cosmosClient = CosmosClient(endPoint, key)
@@ -40,7 +40,7 @@ def products_get():
 
     
 # Ruta: http://dominio.com/productos/34                         
-@app.route("/productos/<int:id>", methods=["GET"])
+@app.route("/productos/ficha/<int:id>", methods=["GET"])
 def product_get(id):
     
     try:
@@ -73,7 +73,7 @@ def products_post():
 
 
 # Ruta: http://dominio.com/productos     
-@app.route("/productos/<id>", methods=["PUT"])
+@app.route("/productos/<int:id>", methods=["PUT"])
 def products_put(id):
     
     try:
@@ -97,7 +97,7 @@ def products_put(id):
     
 
 # Ruta: http://dominio.com/productos/34                    
-@app.route("/productos/<id>", methods=["DELETE"])
+@app.route("/productos/<int:id>", methods=["DELETE"])
 def products_delete(id):
     
     try:
