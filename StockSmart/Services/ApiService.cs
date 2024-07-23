@@ -20,22 +20,32 @@ namespace StockSmart.Services
             var response = await _httpClient.GetAsync("productos");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
+
             return content;
         }
 
         public async Task<string> GetProduct(int id)
         {
-            var response = await _httpClient.GetAsync($"productos/{id}");
-            response.EnsureSuccessStatusCode();
-            var content = await response.Content.ReadAsStringAsync();
-            return content;
-        }
+            try
+            {
+                var response = await _httpClient.GetAsync($"productos/ficha/{id}");
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
 
+                return content;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Error getting product: {ex.Message}");
+                throw;
+            }
+        }
+        
         public async Task<string> CreateProduct(object product)
         {
             var json = JsonConvert.SerializeObject(product);
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("productos", content);
+            var response = await _httpClient.PostAsync("productos/nuevo", content);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }

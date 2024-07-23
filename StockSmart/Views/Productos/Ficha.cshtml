@@ -3,6 +3,9 @@
 @*
 *@
 @{
+    ViewData["Title"] = "Ficha";
+}
+@{
     var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
     var action = ViewContext.RouteData.Values["action"].ToString().ToLower();
 }
@@ -16,7 +19,7 @@
         let action = "@action";
 
         $(document).ready(function () {
-            //App.Page.Products.File.OnLoad();
+            App.Page.Products.File.OnLoad();
         });
     </script>
 }

@@ -1,9 +1,17 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using StockSmart.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        });
     
 builder.Services.AddSingleton<ApiService>(); // Registrar ApiService
 
