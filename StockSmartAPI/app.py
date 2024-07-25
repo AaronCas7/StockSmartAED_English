@@ -55,7 +55,7 @@ def product_get(id):
    
         
 # Ruta: http://dominio.com/productos     
-@app.route("/productos", methods=["POST"])
+@app.route("/productos/nuevo", methods=["POST"])
 def products_post():
 
     try:
@@ -119,7 +119,7 @@ def products_delete(id):
 ################################################################
 # Ejecutar la aplicación de Flask en el servidor web integrado #
 ################################################################
-if(__name__ == "__main__"):             #Esto no sería necesario, se puede hacer app.run() directamente
+if(__name__ == "__main__"):
     app.run()
     
     

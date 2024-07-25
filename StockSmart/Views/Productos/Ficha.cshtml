@@ -19,7 +19,7 @@
         let action = "@action";
 
         $(document).ready(function () {
-            App.Page.Products.File.OnLoad();
+            //App.Page.Products.File.OnLoad();
         });
     </script>
 }
@@ -34,6 +34,7 @@
 </div>
 
 <form asp-controller="@controller" asp-action="@action" asp-route-id="@Model.ProductID" method="post">
+    @Html.AntiForgeryToken()
     <div class="row">
         <div class="col">
             <div class="card">
