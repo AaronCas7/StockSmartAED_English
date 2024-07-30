@@ -36,5 +36,6 @@ namespace StockSmart.Models
 
         [Display(Name = "Descuentos")]
         public int? Discontinued { get; set; }
+
     }
 }

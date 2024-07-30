@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<form asp-controller="@controller" asp-action="@action" asp-route-id="@Model.ProductID" method="post">
+<form asp-controller="productos" asp-action="nuevo" asp-route-id="@Model.ProductID" method="post">
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col">
