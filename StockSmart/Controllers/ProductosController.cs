@@ -42,5 +42,60 @@ namespace StockSmart.Controllers
             return View(productDetails);
         }
 
+
+        // PUT: ProductosController/Ficha/5
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ficha(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View(new Producto());
+            }
+        }
+
+        
+        [HttpGet]
+        // GET: ProductosController/Nuevo
+        public ActionResult Nuevo()
+        {
+            return View("Ficha", new Producto());
+        }
+
+     
+        // POST: ProductosController/Nuevo
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Nuevo(Producto product)
+        {
+            try
+            {
+                // Serializamos el objeto Producto a JSON
+                product.id = Guid.NewGuid().ToString();
+                var json = JsonConvert.SerializeObject(product);
+
+                // Enviamos la solicitud POST al servidor
+                var response = await _httpClient.PostAsync("productos/nuevo", new StringContent(json, Encoding.UTF8, "application/json"));
+
+                // Verificamos si la solicitud se realizó correctamente
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View("Ficha", product);
+                }
+            }
+            catch(Exception ex)
+            {
+                
+                return View("Ficha", new Producto());
+            }
+        }
     }
 }

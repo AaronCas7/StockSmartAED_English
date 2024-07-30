@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockSmart.Models
 {
@@ -6,7 +6,7 @@ namespace StockSmart.Models
     {
         [Display(Name = "Referencia")]
         [Required(ErrorMessage = "La <b>Referencía</b> es un dato requerido.")]
-        public int ProductID { get; set; }
+        public string ProductID { get; set; }
 
         [Display(Name = "Descripción")]
         [Required(ErrorMessage = "La <b>Descripción</b> es un dato requerido.")]
@@ -37,5 +37,6 @@ namespace StockSmart.Models
         [Display(Name = "Descuentos")]
         public int? Discontinued { get; set; }
 
+        public string id { get; set; }
     }
 }
