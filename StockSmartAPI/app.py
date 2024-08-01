@@ -72,7 +72,34 @@ def products_post():
         return jsonify({"error": "Error al insertar el producto"}), 400
 
 
+# Ruta: http://dominio.com/productos     
+@app.route("/productos/<int:id>", methods=["PUT"])
+def products_put(id):
+    
+    try:
+        product_data = request.get_json()  # Obtener los datos del producto
+        if not product_data:
+            return jsonify({"error": "No se proporcionaron datos para actualizar"}), 400
 
+        query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
+        items = list(container.query_items(query, enable_cross_partition_query=True))
+
+        if items:
+            # Eliminar el documento existente
+            container.delete_item(item=items[0]['id'], partition_key=items[0]['CategoryID'])
+
+            # Crear el nuevo documento con la nueva clave de partición
+            updated_product = {**items[0], **product_data}
+            container.create_item(body=updated_product)
+
+            return jsonify({"message": f"Producto con ID {id} actualizado correctamente"}), 200
+        else:
+            return jsonify({"error": f"No se encontró el producto con ID {id}"}), 404
+    
+    except Exception as e:
+        print(f"Error al actualizar el producto: {str(e)}")
+        return jsonify({"error": "Error al actualizar el producto"}), 400
+    
 
 # Ruta: http://dominio.com/productos/34                    
 @app.route("/productos/<int:id>", methods=["DELETE"])
@@ -106,5 +133,3 @@ def products_delete(id):
 ################################################################
 if(__name__ == "__main__"):
     app.run()
-    
-    
