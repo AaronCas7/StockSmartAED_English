@@ -7,6 +7,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient("Default");
 
+builder.Services.AddHttpClient(
+    "APIApp",
+    conf =>
+    {
+        conf.BaseAddress = new Uri("http://localhost:5000/");
+        //conf.DefaultRequestHeaders.Add("Authorization", "<APiKEY>");
+        //conf.DefaultRequestHeaders.Add(HeaderNames.ContentType, "application/json");
+    }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
