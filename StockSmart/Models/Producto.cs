@@ -5,37 +5,36 @@ namespace StockSmart.Models
     public class Producto
     {
         [Display(Name = "Referencia")]
-        [Required(ErrorMessage = "La <b>Referencía</b> es un dato requerido.")]
-        public string ProductID { get; set; }
+        public int ProductID { get; set; }
 
         [Display(Name = "Descripción")]
         [Required(ErrorMessage = "La <b>Descripción</b> es un dato requerido.")]
         [MinLength(5, ErrorMessage = "Debe contener al menos 5 caracteres.")]
-        public string ProductName { get; set; }
+        public int ProductName { get; set; }
 
         [Display(Name = "Proveedor")]
-        public int? SupplierID { get; set; }
+        public int SupplierID { get; set; }
 
         [Display(Name = "Categoría")]
-        public int? CategoryID { get; set; }
+        public int CategoryID { get; set; }
 
         [Display(Name = "Cantidades por unidad")]
-        public string QuantityPerUnit { get; set; }
+        public int QuantityPerUnit { get; set; }
 
         [Display(Name = "Precio")]
-        public decimal? UnitPrice { get; set; }
+        public int UnitPrice { get; set; }
 
         [Display(Name = "Stock")]
-        public short? UnitsInStock { get; set; }
+        public int UnitsInStock { get; set; }
 
         [Display(Name = "Stock Pedido")]
-        public short? UnitsOnOrder { get; set; }
+        public string UnitsOnOrder { get; set; }
 
         [Display(Name = "Nivel")]
-        public short? ReorderLevel { get; set; }
+        public string ReorderLevel { get; set; }
 
         [Display(Name = "Descuentos")]
-        public int? Discontinued { get; set; }
+        public string Discontinued { get; set; }
 
         public string id { get; set; }
     }
