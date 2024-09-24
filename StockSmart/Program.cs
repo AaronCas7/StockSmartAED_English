@@ -5,15 +5,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Obtener la API Key desde las variables de entorno
+string apiKey = Environment.GetEnvironmentVariable("APIKEY");
+
+if (string.IsNullOrEmpty(apiKey))
+{
+    throw new Exception("API Key not found in environment variables");
+}
+
 builder.Services.AddHttpClient("Default");
 
 builder.Services.AddHttpClient(
     "APIApp",
     conf =>
     {
-        conf.BaseAddress = new Uri("http://localhost:5000/");
-        //conf.DefaultRequestHeaders.Add("Authorization", "<APiKEY>");
-        //conf.DefaultRequestHeaders.Add(HeaderNames.ContentType, "application/json");
+        conf.BaseAddress = new Uri("https://apistocksmartaed.azurewebsites.net");
+        conf.DefaultRequestHeaders.Add("Authorization", apiKey);
     }
 );
 
