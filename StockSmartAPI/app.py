@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from azure.cosmos import CosmosClient
 
 import os
@@ -8,13 +8,16 @@ from dotenv import load_dotenv
 app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, que es __main__
 
 # Cargar variables de entorno desde .env
-load_dotenv()
+#load_dotenv()
 
 # Obtener las variables de entorno
 endPoint = os.getenv("ENDPOINT")
 key = os.getenv("KEY")
 dbName = "cosmosAED"
 containerName = "productos"
+
+# Obtener la API Key desde las variables de entorno
+apiKey = os.getenv("APIKEY")
 
 # Establecer conexión con CosmosDB
 cosmosClient = CosmosClient(endPoint, key)
@@ -25,6 +28,14 @@ container = db.get_container_client(containerName)
 ################################
 # Rutas de la aplicación Flask #
 ################################
+
+#Validación de la autorización
+@app.before_request
+def require_api_key():
+    api_key_header = request.headers.get("Authorization")
+    if api_key_header != apiKey:
+        abort(401)  # Unauthorized
+
 
 # Ruta: http://dominio.com/productos    
 @app.route("/productos", methods=["GET"])          
