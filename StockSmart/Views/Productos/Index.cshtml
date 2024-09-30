@@ -29,12 +29,11 @@
         <table id="productos" class="table table-striped">
             <thead>
                 <tr>
-                    <th style="max-width: 10px;"><b>Referencía</b></th>
+                    <th style="max-width: 10px;"><b>Referencia</b></th>
                     <th style="width: 30px;"><b>Descripción</b></th>
                     <th style="max-width: 15px;"><b>Categoría</b></th>
                     <th style="max-width: 10px;"><b>Precio</b></th>
                     <th style="max-width: 10px;"><b>Stock</b></th>
-                    <th style="max-width: 25px;"><b> </b></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,10 +51,10 @@
                     <td>
                         @item.CategoryID
                     </td>
-                    <td class="text-end">
+                    <td>
                         @(item.UnitPrice == null ? "sin precio" : Convert.ToDecimal(item.UnitPrice).ToString("N2"))
                     </td>
-                    <td class="text-end text-units" data-stock="@item.UnitsInStock" data-order="@item.UnitsOnOrder">
+                    <td class="text-units" data-stock="@item.UnitsInStock" data-order="@item.UnitsOnOrder">
                         <span   data-bs-toggle="tooltip"
                                 data-bs-placement="right"
                                 data-bs-html="true"
