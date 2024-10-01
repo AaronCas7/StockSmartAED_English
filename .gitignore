@@ -14,7 +14,7 @@
 .env
 
 # Innecesarios
-.vscode
+
 .vs
 .github
 
