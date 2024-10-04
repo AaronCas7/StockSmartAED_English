@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.Cosmos.Table;
 
 namespace StockSmartFunctions
 {
@@ -16,7 +14,9 @@ namespace StockSmartFunctions
             _logger = loggerFactory.CreateLogger<ChangeCosmosDB>();
 
             // Inicializar la tabla en Azure
-            var storageConnectionString = Environment.GetEnvironmentVariable("StorageAccountConnectionString");
+            var storageConnectionString = Environment.GetEnvironmentVariable(
+                "StorageAccountConnectionString"
+            );
             var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
             _logTable = tableClient.GetTableReference("FunctionLogs");
@@ -26,12 +26,16 @@ namespace StockSmartFunctions
         }
 
         [Function("ChangeCosmosDB")]
-        public async Task Run([CosmosDBTrigger(
-            databaseName: "cosmosAED",
-            containerName: "productos",
-            Connection = "CosmosDBConnectionString",
-            LeaseContainerName = "leases",
-            CreateLeaseContainerIfNotExists = true)] IReadOnlyList<MyInfo> input)
+        public async Task Run(
+            [CosmosDBTrigger(
+                databaseName: "cosmosAED",
+                containerName: "productos",
+                Connection = "CosmosDBConnectionString",
+                LeaseContainerName = "leases",
+                CreateLeaseContainerIfNotExists = true
+            )]
+                IReadOnlyList<MyInfo> input
+        )
         {
             if (input != null && input.Count > 0)
             {
@@ -47,7 +51,8 @@ namespace StockSmartFunctions
                     ProductID = input[0].ProductID,
                     ProductName = input[0].ProductName,
                     LogTime = DateTime.UtcNow,
-                    Message = $"Documentos modificados: {input.Count}, ID del producto: {input[0].ProductID}, Nombre del producto: {input[0].ProductName}"
+                    Message =
+                        $"Documentos modificados: {input.Count}, ID del producto: {input[0].ProductID}, Nombre del producto: {input[0].ProductName}"
                 };
 
                 // Insertar log Entry en la tabla
@@ -71,4 +76,3 @@ namespace StockSmartFunctions
         public string Message { get; set; }
     }
 }
-
