@@ -1,12 +1,10 @@
 <div align="center">
 
-# STOCKSMART AED
+# 📦STOCKSMART AED
 
-Este proyecto ha sido desarrollado por tres alumnos de la **Escuela de Organización Industrial (EOI)** y **Fundación Generation** como parte del curso de **Cloud Computing** (Abril - Julio 2024). Utilizando la infraestructura de **Microsoft Azure**, con **Python** para el backend y **C#** para el frontend, **Stock Smart AED** gestiona inventarios de manera eficiente para empresas que comercializan en línea. La plataforma garantiza escalabilidad, precisión y facilidad de uso, ofreciendo una solución robusta para optimizar la gestión de existencias.
+**¿Quieres ver cómo funciona nuestra solución? 🚀✨ Haz clic aquí para ver el 📽️[VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1zTWGiYvgJjKeMF3oPAdpKPsfrV4QbMEA/view?usp=drivesdk)📽️ y descubre todo lo que StockSmart AED puede hacer por tu negocio!**
 
 </div>
-
-<br/>
 
 <div align="center">
 
@@ -18,8 +16,7 @@ Este proyecto ha sido desarrollado por tres alumnos de la **Escuela de Organizac
 | 🔗[LinkedIn](https://www.linkedin.com/in/esperanzasalasgon/) / 🐙[GitHub](https://github.com/ESG96) | 🔗[LinkedIn](https://www.linkedin.com/in/jdavidprietosuarez/) / 🐙[GitHub](https://github.com/IkonikJD) | 🔗[LinkedIn](https://www.linkedin.com/in/aaron-cb/) / 🐙[GitHub](https://github.com/AaronCas7) |
 
 </div>
-
-# Solución StockSmart AED
+<br>
 
 ## Descripción de la solución
 
@@ -44,6 +41,7 @@ El controlador **Productos** permite:
 - Buscar productos por referencia, descripción y rango de precios
 - Insertar nuevos productos
 - Modificar productos existentes
+- Eliminar productos
 
 La operativa del controlador se realiza a través del API desarrollada en el proyecto _StockSmartAPI_. Para conectar con el API requiere un **API Key** que se envia como cabecera y se encuantra almacenado en _Azure Key Vault_. El _App Service_ lee automáticamente la **API Key** del _Key Vault_ mediante la configuración de una variable de entorno.
 
@@ -59,11 +57,12 @@ El acceso al API se realiza mediante un **API Key** enviada como cabecera. Si el
 
 El API admite los siguientes métodos:
 
-| Request | Status Code Response | Body Response |
-| ------- | -------------------- | ------------- |
-| GET     | 200 OK               | Data en JSON  |
-| POST    | 201 Create           | Data en JSON  |
-| PUT     | 204 No Content       |               |
+| Request | Status Code Response |
+| ------- | -------------------- |
+| GET     | 200 OK               |
+| POST    | 201 Create           |
+| PUT     | 204 No Content       |
+| DELETE  | 204 No Content       |
 
 **Definición de producto en JSON**
 
@@ -77,12 +76,6 @@ El API admite los siguientes métodos:
 
 Retorna el producto coincidente con el **id** del producto o _404 Not Found_ si no existe en la base de datos.
 
-- **Endpoint:** https://dominio.com/productos/?desc=""
-- **Endpoint:** https://dominio.com/productos/?price="<precio mínimo>-<precio máximo>"
-- **Endpoint:** https://dominio.com/productos/?desc=""&price="<precio mínimo>-<precio máximo>"
-
-Retorna una colección de productos. El parámetro **desc** contiene texto para realizar la búsqueda de producto por _ProductName_. El parámetro **price** contiene un texto con un rango de precios para realizar la búsqueda de productos por _UnitPrice_. Los parámetros se pueden combinar en la misma petición.
-
 #### POST
 
 - **Endpoint:** https://dominio.com/productos/
@@ -94,6 +87,12 @@ Inserta un nuevo producto en la base datos. El cuerpo del mensaje contiene los d
 - **Endpoint:** https://dominio.com/productos/id/
 
 Actualiza el producto coincidente con el **id** del producto. El cuerpo del mensaje contiene los datos del producto en JSON. Cualquier error retornara un _400 Bad Request_.
+
+#### DELETE
+
+- **Endpoint:** https://dominio.com/productos/id/
+
+Elimina el producto coincidente con el **id** del producto. Cualquier error retornara un _400 Bad Request_.
 
 ### StockSmart Functions
 
