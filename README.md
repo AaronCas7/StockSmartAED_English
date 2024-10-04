@@ -2,13 +2,13 @@
 
 # 📦STOCKSMART AED
 
-**¿Quieres ver cómo funciona nuestra solución? 🚀✨ Haz clic aquí para ver el 📽️[VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1zTWGiYvgJjKeMF3oPAdpKPsfrV4QbMEA/view?usp=drivesdk)📽️ y descubre todo lo que StockSmart AED puede hacer por tu negocio!**
+**Do you want to see how our solution works? 🚀✨ Click here to watch the 📽️[DEMONSTRATION VIDEO](https://drive.google.com/file/d/1EPu8IPckIjYfR2zHuSAj0SwzfvMaEh0s/view?usp=drive_link)📽️ and discover everything StockSmart AED can do for your business!**
 
 </div>
 
 <div align="center">
 
-### Nuestro Equipo
+### Our Team
 
 |               ![Esperanza Salas González](./StockSmart/wwwroot/images/Esperanza.png)                |                   ![José David Prieto Suárez](./StockSmart/wwwroot/images/JDavid.png)                   |                 ![Aaron Castellano Bao](./StockSmart/wwwroot/images/Aaron.png)                 |
 | :-------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
@@ -18,44 +18,44 @@
 </div>
 <br>
 
-## Descripción de la solución
+## Solution Description
 
-**StockSmart AED** es una solución integral diseñada para gestionar las existencias de productos de compañías que comercializan a través de Internet.
+**StockSmart AED** is a comprehensive solution designed to manage product inventories for companies that sell over the Internet.
 
-Nuestra plataforma utiliza tecnología de Azure con una interfaz intuitiva para optimizar la gestión de inventarios, garantizando eficiencia, precisión y rentabilidad para su negocio.
+Our platform uses Azure technology with an intuitive interface to optimize inventory management, guaranteeing efficiency, accuracy and profitability for your business.
 
-## Diagrama de la Arquitectura
+## Architecture Diagram
 
-![Diagrama de la Arquitectura](./media/diagrama.png)
+![Architecture Diagram](./media/diagrama.png)
 
-## Proyectos
+## Projects
 
 ### StockSmart AED
 
-#### **Proyecto:** Aplicación Web MVC
+#### **Project:** MVC Web Application
 
-#### **Lenguaje/Framework:** C# .NET Core 8.x
+#### **Language/Framework:** C# .NET Core 8.x
 
-El controlador **Productos** permite:
+The **Products** controller allows:
 
-- Buscar productos por referencia, descripción y rango de precios
-- Insertar nuevos productos
-- Modificar productos existentes
-- Eliminar productos
+- Searching products by reference, description and price range
+- Inserting new products
+- Modifying existing products
+- Deleting products
 
-La operativa del controlador se realiza a través del API desarrollada en el proyecto _StockSmartAPI_. Para conectar con el API requiere un **API Key** que se envia como cabecera y se encuantra almacenado en _Azure Key Vault_. El _App Service_ lee automáticamente la **API Key** del _Key Vault_ mediante la configuración de una variable de entorno.
+The controller's operation is carried out through the API developed in the _StockSmartAPI_ project. To connect to the API, it requires an **API Key** that is sent as a header and is stored in _Azure Key Vault_. The _App Service_ automatically reads the **API Key** from the _Key Vault_ by setting an environment variable.
 
 ### StockSmart API
 
-#### **Proyecto:** API Rest
+#### **Project:** Rest API
 
-#### **Lenguaje/Framework:** Python 3.xx con Flask
+#### **Language/Framework:** Python 3.xx with Flask
 
-El proyecto es un API que trabaja con una base de datos Azure CosmosDB. Para conectar con el Cosmos DB requiere una **cadena de conexión** almacenada en _Azure Key Vault_. El _App Service_ lee automáticamente la **cadena de conexión** del _Key Vault_ mediante la configuración de una variable de entorno.
+The project is an API that works with an Azure CosmosDB database. To connect to the Cosmos DB requires a **connection string** stored in _Azure Key Vault_. The _App Service_ automatically reads the **connection string** from the _Key Vault_ by setting an environment variable.
 
-El acceso al API se realiza mediante un **API Key** enviada como cabecera. Si el **API Key** no es valido o no esta presente se retorna _401 Unauthorized_.
+Access to the API is done through an **API Key** sent as a header. If the **API Key** is not valid or not present, _401 Unauthorized_ is returned.
 
-El API admite los siguientes métodos:
+The API supports the following methods:
 
 | Request | Status Code Response |
 | ------- | -------------------- |
@@ -64,7 +64,7 @@ El API admite los siguientes métodos:
 | PUT     | 204 No Content       |
 | DELETE  | 204 No Content       |
 
-**Definición de producto en JSON**
+**Product definition in JSON**
 
 ```javascript
 {"ProductID":"","ProductName":"","SupplierID":"","CategoryID":"","QuantityPerUnit":"","UnitPrice":"","UnitsInStock":"","UnitsOnOrder":"","ReorderLevel":"","Discontinued":""}
@@ -72,34 +72,34 @@ El API admite los siguientes métodos:
 
 #### GET
 
-- **Endpoint:** https://dominio.com/productos/id/
+- **Endpoint:** https://domain.com/productos/id/
 
-Retorna el producto coincidente con el **id** del producto o _404 Not Found_ si no existe en la base de datos.
+Returns the matching product with the **id** of the product or _404 Not Found_ if it does not exist in the database.
 
 #### POST
 
-- **Endpoint:** https://dominio.com/productos/
+- **Endpoint:** https://domain.com/productos/
 
-Inserta un nuevo producto en la base datos. El cuerpo del mensaje contiene los datos del nuevo producto en JSON. Cualquier error retornara un _400 Bad Request_.
+Inserts a new product into the database. The body of the message contains the new product data in JSON. Any error will return a _400 Bad Request_.
 
 #### PUT
 
-- **Endpoint:** https://dominio.com/productos/id/
+- **Endpoint:** https://domain.com/productos/id/
 
-Actualiza el producto coincidente con el **id** del producto. El cuerpo del mensaje contiene los datos del producto en JSON. Cualquier error retornara un _400 Bad Request_.
+Updates the matching product with the product **id**. The body of the message contains the product data in JSON. Any error will return a _400 Bad Request_.
 
 #### DELETE
 
-- **Endpoint:** https://dominio.com/productos/id/
+- **Endpoint:** https://domain.com/productos/id/
 
-Elimina el producto coincidente con el **id** del producto. Cualquier error retornara un _400 Bad Request_.
+Deletes the product matching the product **id**. Any error will return a _400 Bad Request_.
 
 ### StockSmart Functions
 
-#### **Proyecto:** Azure Function
+#### **Project:** Azure Function
 
-#### **Lenguaje/Framework:** C# .NET Core 8.x
+#### **Language/Framework:** C# .NET Core 8.x
 
-Registra en una tabla de una _Cuenta de Almacenamiento_ las operaciones de actualización de datos que suceden en Cosmos DB, considerando este registo el LOG de la aplicación API Rest.
+Records in a table of a _Storage Account_ the data update operations that occur in Cosmos DB, considering this record the LOG of the Rest API application.
 
-Para conectar con la _Cuenta de Almacenamiento_ requiere una **cadena de conexión** almacenada en _Azure Key Vault_. El _Function Service_ lee automáticamente la **cadena de conexión** del _Key Vault_ mediante la configuración de una variable de entorno.
+To connect to the _Storage Account_ requires a **connection string** stored in _Azure Key Vault_. The _Function Service_ automatically reads the **connection string** from the _Key Vault_ by setting an environment variable.
