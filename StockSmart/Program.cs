@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Obtener la API Key desde las variables de entorno
+//Obtener la API Key desde las variables de entorno
 string apiKey = Environment.GetEnvironmentVariable("APIKEY");
 
 if (string.IsNullOrEmpty(apiKey))
