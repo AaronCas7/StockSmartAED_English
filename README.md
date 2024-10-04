@@ -1,6 +1,6 @@
 <div align="center">
 
-# :package:STOCKSMART AED
+# 📦STOCKSMART AED
 
 </div>
 
@@ -14,8 +14,6 @@
 | 🔗[LinkedIn](https://www.linkedin.com/in/esperanzasalasgon/) / 🐙[GitHub](https://github.com/ESG96) | 🔗[LinkedIn](https://www.linkedin.com/in/jdavidprietosuarez/) / 🐙[GitHub](https://github.com/IkonikJD) | 🔗[LinkedIn](https://www.linkedin.com/in/aaron-cb/) / 🐙[GitHub](https://github.com/AaronCas7) |
 
 </div>
-
-# Solución StockSmart AED
 
 ## Descripción de la solución
 
