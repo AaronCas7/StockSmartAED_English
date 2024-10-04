@@ -2,6 +2,8 @@
 
 # 📦STOCKSMART AED
 
+**¿Quieres ver cómo funciona nuestra solución en acción? 🚀✨ Haz clic aquí para ver el 📽️[VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1zTWGiYvgJjKeMF3oPAdpKPsfrV4QbMEA/view?usp=drivesdk)📽️ y descubre todo lo que Stock Smart AED puede hacer por tu negocio!**
+
 </div>
 
 <div align="center">
