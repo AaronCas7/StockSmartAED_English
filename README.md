@@ -14,6 +14,7 @@
 | 🔗[LinkedIn](https://www.linkedin.com/in/esperanzasalasgon/) / 🐙[GitHub](https://github.com/ESG96) | 🔗[LinkedIn](https://www.linkedin.com/in/jdavidprietosuarez/) / 🐙[GitHub](https://github.com/IkonikJD) | 🔗[LinkedIn](https://www.linkedin.com/in/aaron-cb/) / 🐙[GitHub](https://github.com/AaronCas7) |
 
 </div>
+<br>
 
 ## Descripción de la solución
 
@@ -59,7 +60,7 @@ El API admite los siguientes métodos:
 | GET     | 200 OK               |
 | POST    | 201 Create           |
 | PUT     | 204 No Content       |
-| DELETE  | 204 NO Content       |
+| DELETE  | 204 No Content       |
 
 **Definición de producto en JSON**
 
