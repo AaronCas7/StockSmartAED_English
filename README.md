@@ -1,7 +1,16 @@
 <div align="center">
 
+<<<<<<< HEAD
 # :package:STOCKSMART AED 
 </div>
+=======
+# 📦STOCKSMART AED
+
+**¿Quieres ver cómo funciona nuestra solución? 🚀✨ Haz clic aquí para ver el 📽️[VIDEO DEMOSTRATIVO](https://drive.google.com/file/d/1zTWGiYvgJjKeMF3oPAdpKPsfrV4QbMEA/view?usp=drivesdk)📽️ y descubre todo lo que StockSmart AED puede hacer por tu negocio!**
+
+</div>
+
+>>>>>>> cfee71f198fb9bb6e89c0ab5ce639622baf9f40a
 <div align="center">
 
 ### Nuestro Equipo
@@ -12,6 +21,10 @@
 | 🔗[LinkedIn](https://www.linkedin.com/in/esperanzasalasgon/) / 🐙[GitHub](https://github.com/ESG96) | 🔗[LinkedIn](https://www.linkedin.com/in/jdavidprietosuarez/) / 🐙[GitHub](https://github.com/IkonikJD) | 🔗[LinkedIn](https://www.linkedin.com/in/aaron-cb/) / 🐙[GitHub](https://github.com/AaronCas7) |
 
 </div>
+<<<<<<< HEAD
+=======
+<br>
+>>>>>>> cfee71f198fb9bb6e89c0ab5ce639622baf9f40a
 
 ## Descripción de la solución
 
@@ -56,8 +69,13 @@ El API admite los siguientes métodos:
 | ------- | -------------------- |
 | GET     | 200 OK               |
 | POST    | 201 Create           |
+<<<<<<< HEAD
 | PUT     | 200 OK               |
 | DELETE  | 204 OK               |
+=======
+| PUT     | 204 No Content       |
+| DELETE  | 204 No Content       |
+>>>>>>> cfee71f198fb9bb6e89c0ab5ce639622baf9f40a
 
 **Definición de producto en JSON**
 

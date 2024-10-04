@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Creamos una instancia de Flask
 app = Flask(__name__)   #Equiparable a escribir lo que contiene esa variable, que es __main__
 
-# Cargar variables de entorno desde .env
+# Cargar variables de entorno desde .env para pruebas en local
 #load_dotenv()
 
 # Obtener las variables de entorno
@@ -24,7 +24,6 @@ cosmosClient = CosmosClient(endPoint, key)
 db = cosmosClient.get_database_client(dbName)
 container = db.get_container_client(containerName)
 
-
 ################################
 # Rutas de la aplicación Flask #
 ################################
@@ -34,7 +33,7 @@ container = db.get_container_client(containerName)
 def require_api_key():
     api_key_header = request.headers.get("Authorization")
     if api_key_header != apiKey:
-        abort(401)  # Unauthorized
+        abort(401)  # Sin Autorización
 
 
 # Ruta: http://dominio.com/productos    
@@ -56,7 +55,9 @@ def product_get(id):
     
     try:
         query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
-        items = list(container.query_items(query, enable_cross_partition_query=True))  # Hay que habilitar las consultas entre particiones cruzadas
+        
+        # Hay que habilitar las consultas entre particiones cruzadas
+        items = list(container.query_items(query, enable_cross_partition_query=True))  
             
         return jsonify(items)  # Devolver el primer producto encontrado como JSON
     
@@ -119,7 +120,9 @@ def products_delete(id):
     try:
         # Intenta eliminar el producto con el ID especificado
         query = f"SELECT * FROM c WHERE c.ProductID = '{id}'"
-        items = list(container.query_items(query, enable_cross_partition_query=True))  # Hay que habilitar las consultas entre particiones cruzadas
+        
+        # Hay que habilitar las consultas entre particiones cruzadas
+        items = list(container.query_items(query, enable_cross_partition_query=True))  
 
         if items:
             product = items[0]
